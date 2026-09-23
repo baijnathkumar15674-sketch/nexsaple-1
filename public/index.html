@@ -547,7 +547,7 @@ inquiryForm.addEventListener('submit', async (e)=>{
       throw new Error(result.error || 'Something went wrong');
     }
   } catch(err){
-    formNote.textContent='Could not send your message right now. Please email hello@nexsaple.com directly, or try again.';
+    formNote.textContent='Could not send your message right now. Please email support@nexsaple.com directly, or try again.';
     formNote.style.color='#ff8080';
   } finally {
     submitBtn.disabled=false; submitBtn.textContent='Send Project Inquiry';
