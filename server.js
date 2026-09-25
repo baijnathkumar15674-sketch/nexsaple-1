@@ -12,21 +12,22 @@
 // Deploy this on any Node-capable host (Render, Railway, a VPS, cPanel Node app, etc.)
 
 require('dotenv').config();
-const cors = require('cors');
-const app = express();
+
 const express = require('express');
+const cors = require('cors');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
 
 const app = express();
+
 const PORT = process.env.PORT || 3000;
 const DATA_DIR = path.join(__dirname, 'data');
 const DATA_FILE = path.join(DATA_DIR, 'submissions.json');
-
 // --- setup ---
 app.use(express.json());
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR);
