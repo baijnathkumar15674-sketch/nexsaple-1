@@ -533,10 +533,14 @@ inquiryForm.addEventListener('submit', async (e)=>{
   submitBtn.disabled=true; submitBtn.textContent='Sending...';
   const data=Object.fromEntries(new FormData(inquiryForm).entries());
   try{
-    const res=await fetch('/api/contact',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(data)
+   const API_URL = 'https://nexsaple-pqps.onrender.com';
+
+const res = await fetch(`${API_URL}/api/contact`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
     });
     const result=await res.json();
     if(res.ok && result.success){
