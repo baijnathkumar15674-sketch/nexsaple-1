@@ -528,7 +528,7 @@ overlay.addEventListener('click',(e)=>{if(e.target===overlay)overlay.classList.r
 const inquiryForm=document.getElementById('inquiryForm');
 const submitBtn=document.getElementById('submitBtn');
 const formNote=document.getElementById('formNote');
-const API_URL = 'https://YOUR-BACKEND-NAME.onrender.com';
+const API_URL = 'https://nexsaple-pqps.onrender.com';
 
 inquiryForm.addEventListener('submit', async (e)=>{
   e.preventDefault();
@@ -541,7 +541,7 @@ inquiryForm.addEventListener('submit', async (e)=>{
   );
 
   try {
-    const res = await fetch(`${API_URL}/api/contact`, {
+    const res = await fetch(`${https://nexsaple-pqps.onrender.com}/api/contact`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -580,7 +580,7 @@ inquiryForm.addEventListener('submit', async (e)=>{
   }
 });
 
-const res = await fetch(`${API_URL}/api/contact`, {
+const res = await fetch(`${https://nexsaple-pqps.onrender.com}/api/contact`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
