@@ -528,12 +528,57 @@ overlay.addEventListener('click',(e)=>{if(e.target===overlay)overlay.classList.r
 const inquiryForm=document.getElementById('inquiryForm');
 const submitBtn=document.getElementById('submitBtn');
 const formNote=document.getElementById('formNote');
+const API_URL = 'https://YOUR-BACKEND-NAME.onrender.com';
+
 inquiryForm.addEventListener('submit', async (e)=>{
   e.preventDefault();
-  submitBtn.disabled=true; submitBtn.textContent='Sending...';
-  const data=Object.fromEntries(new FormData(inquiryForm).entries());
-  try{
-   const API_URL = 'https://nexsaple-pqps.onrender.com';
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+
+  const data = Object.fromEntries(
+    new FormData(inquiryForm).entries()
+  );
+
+  try {
+    const res = await fetch(`${API_URL}/api/contact`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+
+    if (res.ok && result.success) {
+      formNote.textContent =
+        'Thank you — your inquiry has been received. We will get back to you soon.';
+
+      formNote.style.color = 'var(--cyan)';
+      inquiryForm.reset();
+
+    } else {
+      throw new Error(
+        result.error || 'Something went wrong'
+      );
+    }
+
+  } catch (err) {
+
+    console.error('Contact form error:', err);
+
+    formNote.textContent =
+      'Could not send your message right now. Please try again.';
+
+    formNote.style.color = '#ff8080';
+
+  } finally {
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Project Inquiry';
+  }
+});
 
 const res = await fetch(`${API_URL}/api/contact`, {
   method: 'POST',
