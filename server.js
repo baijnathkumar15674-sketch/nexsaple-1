@@ -12,6 +12,8 @@
 // Deploy this on any Node-capable host (Render, Railway, a VPS, cPanel Node app, etc.)
 
 require('dotenv').config();
+const cors = require('cors');
+const app = express();
 const express = require('express');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
