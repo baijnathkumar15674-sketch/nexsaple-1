@@ -525,72 +525,61 @@ document.getElementById('modalClose').addEventListener('click',()=>overlay.class
 overlay.addEventListener('click',(e)=>{if(e.target===overlay)overlay.classList.remove('open');});
 
 // contact form -> own backend (server.js), not a third-party form service
-// Contact form
-const inquiryForm = document.getElementById('inquiryForm');
-const submitBtn = document.getElementById('submitBtn');
-const formNote = document.getElementById('formNote');
+  // Contact form
+  const inquiryForm = document.getElementById('inquiryForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formNote = document.getElementById('formNote');
 
-const API_URL = 'https://nexsaple-pqps.onrender.com';
+  const API_URL = 'https://nexsaple-pqps.onrender.com';
 
-inquiryForm.addEventListener('submit', async function (e) {
-  e.preventDefault();
+  inquiryForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
 
-  const data = Object.fromEntries(
-    new FormData(inquiryForm).entries()
-  );
+    const data = Object.fromEntries(
+      new FormData(inquiryForm).entries()
+    );
 
-  try {
-    const res = await fetch(`${API_URL}/api/contact`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
+    try {
+      const res = await fetch(`${API_URL}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
 
-    const result = await res.json();
+      const result = await res.json();
 
-    if (res.ok && result.success) {
+      if (res.ok && result.success) {
+        formNote.textContent =
+          'Thank you — your inquiry has been received. We will get back to you soon.';
+
+        formNote.style.color = 'var(--cyan)';
+        inquiryForm.reset();
+
+      } else {
+        throw new Error(
+          result.error || 'Something went wrong'
+        );
+      }
+
+    } catch (err) {
+      console.error('Contact form error:', err);
+
       formNote.textContent =
-        'Thank you — your inquiry has been received. We will get back to you soon.';
+        'Could not send your message right now. Please try again.';
 
-      formNote.style.color = 'var(--cyan)';
-      inquiryForm.reset();
+      formNote.style.color = '#ff8080';
 
-    } else {
-      throw new Error(
-        result.error || 'Something went wrong'
-      );
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Project Inquiry';
     }
-
-  } catch (err) {
-    console.error('Contact form error:', err);
-
-    formNote.textContent =
-      'Could not send your message right now. Please try again.';
-
-    formNote.style.color = '#ff8080';
-
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Send Project Inquiry';
-  }
-});
-
-const res = await fetch(`${API_URL}/api/contact`, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-    });
-    const result=await res.json();
-    if(res.ok && result.success){
-      formNote.textContent='Thank you — your inquiry has been received. We will get back to you soon.';
-      formNote.style.color='var(--cyan)';
+  });
+      
       inquiryForm.reset();
     } else {
       throw new Error(result.error || 'Something went wrong');
