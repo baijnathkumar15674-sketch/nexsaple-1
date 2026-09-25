@@ -525,12 +525,14 @@ document.getElementById('modalClose').addEventListener('click',()=>overlay.class
 overlay.addEventListener('click',(e)=>{if(e.target===overlay)overlay.classList.remove('open');});
 
 // contact form -> own backend (server.js), not a third-party form service
-const inquiryForm=document.getElementById('inquiryForm');
-const submitBtn=document.getElementById('submitBtn');
-const formNote=document.getElementById('formNote');
+// Contact form
+const inquiryForm = document.getElementById('inquiryForm');
+const submitBtn = document.getElementById('submitBtn');
+const formNote = document.getElementById('formNote');
+
 const API_URL = 'https://nexsaple-pqps.onrender.com';
 
-inquiryForm.addEventListener('submit', async (e)=>{
+inquiryForm.addEventListener('submit', async function (e) {
   e.preventDefault();
 
   submitBtn.disabled = true;
@@ -565,7 +567,6 @@ inquiryForm.addEventListener('submit', async (e)=>{
     }
 
   } catch (err) {
-
     console.error('Contact form error:', err);
 
     formNote.textContent =
@@ -574,7 +575,6 @@ inquiryForm.addEventListener('submit', async (e)=>{
     formNote.style.color = '#ff8080';
 
   } finally {
-
     submitBtn.disabled = false;
     submitBtn.textContent = 'Send Project Inquiry';
   }
